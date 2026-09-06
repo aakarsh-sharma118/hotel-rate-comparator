@@ -1,0 +1,33 @@
+{
+  "name": "hotel-rate-comparator-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hotel Rate Comparator using Temporal Workflows - Full-Stack Application",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,WORKER,CLIENT\" -c \"blue.bold,magenta.bold,cyan.bold\" \"npm run dev:backend\" \"npm run dev:worker\" \"npm run dev:frontend\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:worker": "npm --prefix backend run worker",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "test": "npm --prefix backend run test && npm --prefix frontend run test",
+    "test:backend": "npm --prefix backend run test",
+    "test:frontend": "npm --prefix frontend run test",
+    "lint": "npm --prefix backend run lint && npm --prefix frontend run lint",
+    "visualize": "npm --prefix frontend run visualize",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "prepare": "husky || true"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json}": [
+      "npm run test"
+    ]
+  }
+}

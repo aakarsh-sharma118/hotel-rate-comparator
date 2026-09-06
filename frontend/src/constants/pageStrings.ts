@@ -1,0 +1,299 @@
+/**
+ * User-facing strings and content.
+ */
+
+export const PAGE_STRINGS = {
+  brand: {
+    name: 'HotelFinder',
+    namePrefix: 'Hotel',
+    nameHighlight: 'Finder',
+    tagline: 'Rate Comparator',
+    badge: 'Enterprise Rate Engine',
+    logoAlt: 'HotelFinder Logo',
+  },
+
+  currency: {
+    symbol: '₹',
+    code: 'INR',
+  },
+
+  common: {
+    closeModal: 'Close modal',
+    understandAndAgree: 'I Understand & Agree',
+    defaultLocation: 'City Center',
+    defaultLocationSuffix: 'Prime Location',
+  },
+
+  nav: {
+    search: 'Search Stays',
+    bookings: 'My Bookings',
+    howItWorks: 'Engine Architecture',
+    github: 'Source Code',
+    themeToggleLabel: 'Toggle theme',
+    mobileMenuToggleLabel: 'Toggle mobile menu',
+    lightMode: 'Light Mode',
+    darkMode: 'Dark Mode',
+  },
+
+  hero: {
+    titlePrefix: 'Find the',
+    titleHighlight: 'BEST',
+    titleSuffix: 'Hotel Rate. Consistently.',
+    subtitle:
+      'Direct wholesale hotel rate comparison in Indian Rupees (₹). Real-time parallel aggregation across verified global suppliers with guaranteed lowest rates.',
+    kicker: 'India’s Premier Multi-Supplier Rate Engine',
+    rupeePill: '₹ INR Wholesale Parity',
+    stats: [
+      { value: '25,000+', label: 'Daily Price Checks' },
+      { value: '5.0s', label: 'Max SLA Timeout' },
+      { value: '99.99%', label: 'Orchestration Reliability' },
+      { value: '₹650 avg.', label: 'Customer Savings' },
+    ],
+    trustBadges: {
+      wholesale: 'Direct Wholesale Rates',
+      parity: 'Rate Parity Guarantee',
+      sla: '5.0s Strict Concurrency SLA',
+      markup: '0% Markup Booking',
+    },
+    pillGuarantee: '₹ Indian Rupee Rate Parity Guarantee',
+    pillSLA: 'Strict 5s SLA Concurrency',
+  },
+
+  searchForm: {
+    destinationLabel: 'Where are you going?',
+    destinationPlaceholder: 'Enter city (e.g. Goa, Jaipur, Mumbai, Delhi, Paris, Tokyo)',
+    cityRequiredError: 'Please enter a destination city before searching',
+    checkInLabel: 'Check-in Date',
+    checkInPlaceholder: 'Select check-in',
+    checkOutLabel: 'Check-out Date',
+    checkOutPlaceholder: 'Select check-out',
+    guestsLabel: 'Guests & Rooms',
+    guestsPlaceholder: 'Select guests & rooms',
+    submitButton: 'Search Best Rates',
+    submittingButton: 'Comparing Rates in Parallel...',
+    submitButtonShort: 'SEARCH HOTELS',
+    submittingButtonShort: 'COMPARING...',
+    resetButton: 'Reset Form',
+  },
+
+  searchHook: {
+    searchFailed: 'Hotel search request failed',
+    cancelledByUser: 'Workflow was cancelled mid-way by user',
+    cancelFailed: (msg: string) => `Failed to cancel workflow: ${msg}`,
+    unknownError: 'Unknown error',
+  },
+
+  results: {
+    heading: 'Verified Available Rates',
+    subheading: 'Live wholesale rates in Indian Rupees (₹) compared across global suppliers in real time',
+    comparisonTitle: 'Multi-Supplier Rate Comparison',
+    sortByLabel: 'Sort hotels by',
+    filterBySupplier: 'Provider:',
+    filterByAmenity: 'Amenities:',
+    filters: {
+      providerLabel: 'Provider:',
+      allProviders: 'All Providers',
+      supplierAOnly: 'Supplier A Only',
+      supplierBOnly: 'Supplier B Only',
+      freeCancellation: 'Free Cancellation',
+      breakfastIncluded: 'Breakfast Included',
+    },
+    sortOptions: {
+      cheapest: 'Lowest Price First',
+      stars: 'Highest Rated',
+      name: 'Hotel Name (A-Z)',
+      favorites: 'Favorites Only',
+    },
+    supplierA: 'Supplier A',
+    supplierB: 'Supplier B',
+    rateFrom: 'Rate from',
+    bestRateBadge: 'Best Deal Verified',
+    compareBadgePrefix: 'Supplier Comparison:',
+    aIsCheaper: 'Supplier A saves more',
+    bIsCheaper: 'Supplier B saves more',
+    tieCheaper: 'Identical rate (Supplier A verified)',
+    bookNow: 'Reserve Room',
+    viewDetails: 'View Details',
+    searchInterrupted: 'Search Interrupted',
+    noHotelsTitle: 'No Rooms Available',
+    noHotelsDesc: 'Neither supplier returned available inventory for the selected dates and destination. Please try alternate dates or city.',
+    favoritesEmptyTitle: 'No favorite hotels saved yet',
+    favoritesEmptyDesc: 'Click the heart icon on any hotel card to add it to your favorites list.',
+    saveFavoritesLabel: 'Save to favorites',
+    gridViewLabel: 'Grid view',
+    listViewLabel: 'List view',
+    taxNotice: 'Includes estimated local GST',
+    bestDealLabel: 'Best Deal:',
+    winsLabel: 'wins',
+    savePrefix: 'Save',
+    nightUnit: '/ night',
+    emptyState: {
+      title: 'No Hotel Deals Found',
+      subtitle: 'We couldn’t locate available rooms matching your criteria.',
+      description: 'Neither Supplier A nor Supplier B returned room inventory for this destination and date selection. Please check alternate travel dates, adjust occupancy, or choose one of our verified destination hubs below.',
+      popularCitiesTitle: 'Recommended Destinations with Verified Rates:',
+      popularCities: ['Goa', 'Jaipur', 'Mumbai', 'Delhi', 'Bangalore', 'Kochi'],
+      resetButton: 'Reset Search & Clear Filters',
+      filterEmptyTitle: 'No Hotels Match the Selected Filters',
+      filterEmptyDesc: 'There are no hotel deals that match the chosen supplier or amenity filters. Clear your filters to see all available rates.',
+      clearFiltersButton: 'Reset Active Filters',
+    },
+  },
+
+  statusPanel: {
+    title: 'Engine Orchestration',
+    subtitle: 'Live Distributed SLA Pipeline & Execution State',
+    workflowLabel: 'Execution ID',
+    statusLabel: 'Engine Status',
+    activityA: 'fetchSupplierA()',
+    activityB: 'fetchSupplierB()',
+    timeoutBadge: '5s Hard SLA Timeout',
+    retryBadge: 'Exponential Retry Policy (2x)',
+    cancelButton: 'Cancel Mid-Way Search',
+    cancelStatus: 'Cancellation requested. Terminating pending activity scopes...',
+    tieBreakerNote: 'Deterministic Fallback: Supplier A prioritized on rate parity',
+    closeButton: 'Close Monitor',
+  },
+
+  bookingModal: {
+    title: 'Complete Your Reservation',
+    subtitle: 'Verified Best Rate Guarantee • Direct Fulfillment in INR (₹)',
+    guestNameLabel: 'Primary Guest Full Name',
+    guestNamePlaceholder: 'e.g. Aakarsh Sharma',
+    emailLabel: 'Booking Confirmation Email',
+    emailPlaceholder: 'e.g. aakarsh@example.com',
+    phoneLabel: 'Mobile Contact Number',
+    phonePlaceholder: 'e.g. 98XXXXXX10',
+    roomSummary: 'Reservation Details',
+    datesLabel: 'Travel Dates',
+    guestsSummaryLabel: 'Occupancy',
+    rateBreakdown: 'Transparent Price Breakdown (INR)',
+    nightlyRate: 'Direct Supplier Nightly Rate',
+    taxes: 'Estimated Local GST & Tourism Fee (12%)',
+    total: 'Total Amount Due',
+    confirmButton: 'Confirm & Secure Room',
+    cancelButton: 'Back to Search',
+    successTitle: 'Reservation Confirmed!',
+    successDesc: 'Your room reservation has been successfully locked in and registered directly with the wholesale supplier.',
+    referenceCodeLabel: 'Booking Confirmation Reference:',
+    doneButton: 'Return to Search',
+    viewBookingsButton: 'Go to My Bookings',
+    bestRateBadge: 'Best Rate',
+    voucherSentNotice: (email: string) => `A confirmation voucher and GST receipt has been sent to ${email}.`,
+    securedNotice: (hotelName: string, supplier: string) =>
+      `Your booking for ${hotelName} has been secured at the guaranteed rate via ${supplier}.`,
+  },
+
+  faq: {
+    title: 'Frequently Asked Questions',
+    kicker: 'Help & Transparency',
+    subtitle: 'Everything you need to know about our multi-supplier rate comparison engine.',
+    supportTitle: 'Have additional questions regarding rates or suppliers?',
+    supportSubtitle: 'Our distributed operations team is available around the clock to assist you.',
+    items: [
+      {
+        q: 'How does HotelFinder find cheaper rates than single booking sites?',
+        a: 'We query wholesale hotel suppliers concurrently through distributed orchestration workflows. Each supplier has different allocations and commission structures; our engine automatically selects and locks in the lowest verified rate in Indian Rupees (₹).',
+      },
+      {
+        q: 'What happens if one of the hotel suppliers experiences an outage or timeout?',
+        a: 'Our engine applies individual 5-second timeouts and automatic exponential backoff retries. If a supplier fails or takes more than 5 seconds, the engine cancels that specific call and immediately serves the available healthy supplier rates.',
+      },
+      {
+        q: 'Can I cancel an ongoing rate search if my plans change?',
+        a: 'Yes. Every search is tied to a unique distributed workflow execution ID. Clicking "Cancel Mid-Way Search" immediately sends a cancellation signal to gracefully abort all in-flight supplier network requests.',
+      },
+      {
+        q: 'Are there any hidden fees or currency conversion markups?',
+        a: 'None. All quotes are delivered in Indian Rupees (₹) with full transparency, including estimated local taxes and GST, with zero hidden booking surcharges.',
+      },
+    ],
+  },
+
+  bookingsPage: {
+    title: 'My Reservations',
+    subtitle: 'Manage your verified hotel bookings and access instant confirmation details.',
+    kicker: 'Reservation Management',
+    voidedNote: 'Reservation has been voided',
+    exploreMore: 'Explore More Destinations',
+    emptyTitle: 'No Reservations Found',
+    emptyDesc: 'You have not booked any stays yet. Search rates across our suppliers to find the best deal.',
+    searchNow: 'Search Stays Now',
+    cancelBookingBtn: 'Cancel Reservation',
+    cancelledBadge: 'Cancelled',
+    confirmedBadge: 'Confirmed',
+    refCode: 'Confirmation Ref',
+    dates: 'Travel Dates',
+    guests: 'Guests',
+    supplier: 'Fulfillment Provider',
+    total: 'Total Due (INR)',
+    savingsBanner: 'You saved an average of ₹650 across verified supplier rates on these bookings.',
+  },
+
+  policies: {
+    agreeButton: 'I Understand & Agree',
+    privacy: {
+      title: 'Privacy & Data Protection Policy',
+      badge: 'Official Privacy Statement',
+      subtitle: 'Effective: 2026 • Governing global traveler data privacy & protection',
+      sections: [
+        {
+          heading: '1. Information We Collect',
+          body: 'We collect destination queries, travel dates, guest party sizes, and reservation contact details (name, email address, phone number). All inputs are strictly processed to query authorized wholesale suppliers and confirm room allocations.',
+        },
+        {
+          heading: '2. Purpose of Data Processing',
+          body: 'Personal and booking details are used exclusively for real-time rate comparison, distributed itinerary fulfillment, and direct delivery of reservation confirmations in Indian Rupees (₹). We never sell, rent, or trade traveler data to ad networks or third-party marketers.',
+        },
+        {
+          heading: '3. Data Security & Cryptographic Protection',
+          body: 'All data transmitted between the traveler and our server infrastructure is encrypted using industry-standard TLS 1.3 encryption. Backend data stores utilize isolated memory boundaries and strict access control protocols.',
+        },
+        {
+          heading: '4. Traveler Rights & Data Retention',
+          body: 'Travelers may inspect, modify, or request complete deletion of reservation records and associated identifiers at any time by contacting our data protection officer.',
+        },
+      ],
+    },
+    terms: {
+      title: 'Terms of Service & Rate Parity Guarantee',
+      badge: 'Legally Binding Agreement',
+      subtitle: 'Effective: 2026 • Governing rate comparison and booking conditions',
+      sections: [
+        {
+          heading: '1. Wholesale Rate Parity Guarantee',
+          body: 'HotelFinder queries accredited wholesale suppliers in real time to present verified, non-manipulated price comparisons in Indian Rupees (₹). Every quote reflects direct room inventory and includes clear tax breakdowns with zero hidden markup.',
+        },
+        {
+          heading: '2. Booking Confirmation & Room Allocation',
+          body: 'Upon confirming a reservation, a unique confirmation reference code is generated and synchronized directly with the supplier. Room availability is locked in immediately upon reservation dispatch.',
+        },
+        {
+          heading: '3. Modification & Cancellation Policy',
+          body: 'Confirmed reservations may be cancelled directly from the "My Reservations" dashboard without penalty, subject to individual property check-in and cancellation cutoff windows.',
+        },
+        {
+          heading: '4. Distributed Engine Service Levels',
+          body: 'Our multi-supplier comparison engine enforces strict 5-second latency SLAs. In the event of supplier outages or transient delays, the engine automatically isolates failures to ensure uninterrupted platform operation.',
+        },
+      ],
+    },
+  },
+
+  footer: {
+    company: 'HotelFinder Global Hospitality Technologies India',
+    about: 'HotelFinder is a premier rate aggregation platform delivering transparent, resilient hotel rate comparison in Indian Rupees (₹) for travelers worldwide.',
+    copyright: `© ${new Date().getFullYear()} HotelFinder Technologies Inc. All rights reserved.`,
+    headings: {
+      platform: 'Platform',
+      supportLegal: 'Support & Legal',
+    },
+    links: {
+      searchStays: 'Search Stays',
+      myReservations: 'My Reservations',
+      faq: 'Frequently Asked Questions (FAQ)',
+      privacy: 'Privacy Statement',
+      terms: 'Terms of Service',
+    },
+  },
+};

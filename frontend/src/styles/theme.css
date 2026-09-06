@@ -1,0 +1,100 @@
+/* ==========================================================================
+   THEME DESIGN SYSTEM - LIGHT & DARK MODES
+   With Themed Scrollbars, Dynamic Contrast & Micro-Transitions
+   ========================================================================== */
+
+:root,
+[data-theme="light"],
+body.light-mode {
+  --primary-navy: #0b1329;
+  --primary-orange: #f97316;
+  --primary-orange-hover: #ea580c;
+  --accent-cyan: #06b6d4;
+  --accent-teal: #0d9488;
+  --accent-green: #16a34a;
+  --accent-red: #ef4444;
+
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-input: #f1f5f9;
+  --bg-input-border: #e2e8f0;
+  --bg-modal: #ffffff;
+  --bg-modal-backdrop: rgba(15, 23, 42, 0.6);
+
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+
+  --border-subtle: #e2e8f0;
+  --border-active: #0284c7;
+
+  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 20px 30px -10px rgba(0, 0, 0, 0.12);
+  --shadow-btn: 0 8px 20px rgba(249, 115, 22, 0.35);
+
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+  --skeleton-base: #e2e8f0;
+  --skeleton-highlight: #f8fafc;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="dark"],
+body.dark-mode {
+  --bg-page: #0b1120;
+  --bg-card: #151e32;
+  --bg-card-hover: #1e2942;
+  --bg-input: #1e293b;
+  --bg-input-border: #334155;
+  --bg-modal: #151e32;
+  --bg-modal-backdrop: rgba(0, 0, 0, 0.8);
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+
+  --border-subtle: #334155;
+  --border-active: #38bdf8;
+
+  --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.35), 0 8px 10px -6px rgba(0, 0, 0, 0.25);
+  --shadow-card-hover: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+
+  --scrollbar-track: #0b1120;
+  --scrollbar-thumb: #334155;
+  --scrollbar-thumb-hover: #475569;
+  --skeleton-base: #1e293b;
+  --skeleton-highlight: #334155;
+}
+
+/* ==========================================================================
+   THEMED CUSTOM SCROLLBAR
+   Seamlessly updates background and thumb based on light/dark mode
+   ========================================================================== */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 6px;
+  border: 2px solid var(--scrollbar-track);
+  transition: background-color 200ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
