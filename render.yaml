@@ -1,6 +1,4 @@
-# render.yaml - Render.com Infrastructure as Code
 # Deploy both the API server and Temporal worker from one config
-# Docs: https://render.com/docs/blueprint-spec
 
 services:
   # ─── 1. Express API Server ───────────────────────────────────────────────
