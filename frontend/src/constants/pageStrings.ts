@@ -290,8 +290,8 @@ export const PAGE_STRINGS = {
     },
     links: {
       searchStays: 'Search Stays',
-      myReservations: 'My Reservations',
-      privacy: 'Privacy Statement',
+      myReservations: 'My Bookings',
+      privacy: 'Privacy Policy',
       terms: 'Terms of Service',
     },
   },
