@@ -1989,6 +1989,7 @@ body.dark-mode .view-toggle-btn.active {
 .common-modal-icon-wrapper {
   width: 48px;
   height: 48px;
+  margin: auto 0;
   border-radius: 14px;
   background: var(--bg-input);
   border: 1px solid var(--border-subtle);
@@ -2564,98 +2565,6 @@ body.dark-mode .view-toggle-btn.active {
   border-color: #0284c7;
 }
 
-/* FAQ View */
-.faq-page-container {
-  padding-top: 1rem;
-  max-width: 860px;
-  margin: 0 auto;
-  animation: fadeIn 200ms ease;
-}
-
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.faq-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  overflow: hidden;
-  transition: border-color 150ms ease;
-}
-
-.faq-item.is-expanded {
-  border-color: #0284c7;
-}
-
-.faq-question-btn {
-  width: 100%;
-  padding: 1.15rem 1.25rem;
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-main);
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-
-.faq-q-text {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.faq-icon {
-  color: #0284c7;
-  flex-shrink: 0;
-}
-
-.faq-chevron {
-  color: var(--text-muted);
-  transition: transform 200ms ease;
-  flex-shrink: 0;
-}
-
-.faq-chevron.rotate-180 {
-  transform: rotate(180deg);
-}
-
-.faq-answer-pane {
-  padding: 0 1.25rem 1.25rem 2.85rem;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.faq-support-box {
-  margin-top: 2.5rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--bg-input);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.faq-support-box h4 {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-.faq-support-box p {
-  font-size: 0.825rem;
-  color: var(--text-muted);
-}
-
 /* Home Marketing Features & Stats */
 .features-home-section {
   margin-top: 4.5rem;
@@ -2866,16 +2775,7 @@ body.dark-mode .view-toggle-btn.active {
   }
 }
 
-@media (max-width: 850px) {
-  .hotel-card.horizontal-card {
-    grid-template-columns: 1fr;
-  }
-  .horizontal-action-col {
-    border-left: none;
-    border-top: 1px solid var(--border-subtle);
-    align-items: flex-start;
-  }
-}
+/* 850px list view handled in responsive section below */
 
 @media (max-width: 768px) {
   .mobile-header-actions {
@@ -3206,4 +3106,156 @@ body.dark-mode .view-toggle-btn.active {
 
 
 
+
+
+/* Responsive List View on Mobile & Tablet: True compact horizontal list item */
+@media (max-width: 850px) {
+  .hotel-card.horizontal-card {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    grid-template-rows: 1fr auto;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .hotel-card.horizontal-card .horizontal-img-wrap {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 100%;
+    height: 100%;
+    min-height: 140px;
+    position: relative;
+  }
+  .hotel-card.horizontal-card .horizontal-img-wrap .hotel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hotel-card.horizontal-card .verified-deal-badge {
+    top: 8px;
+    left: 8px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.65rem;
+  }
+  .hotel-card.horizontal-card .hotel-fav-btn {
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+  }
+  .hotel-card.horizontal-card .horizontal-content-col {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0.85rem 1rem 0.5rem;
+    gap: 0.45rem;
+  }
+  .hotel-card.horizontal-card .hotel-name {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.15rem;
+  }
+  .hotel-card.horizontal-card .hotel-location {
+    font-size: 0.775rem;
+  }
+  .hotel-card.horizontal-card .hotel-amenities-tags {
+    margin-top: 0.15rem;
+    gap: 0.35rem;
+  }
+  .hotel-card.horizontal-card .amenity-chip {
+    font-size: 0.675rem;
+    padding: 0.15rem 0.45rem;
+  }
+  .hotel-card.horizontal-card .horizontal-rate-compare {
+    padding: 0.4rem 0.65rem;
+    border-radius: 8px;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+  }
+  .hotel-card.horizontal-card .compare-item {
+    font-size: 0.75rem;
+  }
+  .hotel-card.horizontal-card .compare-price {
+    font-size: 0.9rem;
+  }
+  .hotel-card.horizontal-card .compare-callout {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+  .hotel-card.horizontal-card .horizontal-action-col {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 0.6rem 1rem 0.75rem;
+    background: var(--bg-input);
+    border-left: none;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hotel-card.horizontal-card .horizontal-action-col .price-lead-label,
+  .hotel-card.horizontal-card .horizontal-action-col .tax-notice {
+    display: none;
+  }
+  .hotel-card.horizontal-card .price-display-box {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .hotel-card.horizontal-card .price-currency {
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .hotel-card.horizontal-card .price-figure {
+    font-size: 1.35rem;
+    font-weight: 800;
+  }
+  .hotel-card.horizontal-card .price-period {
+    font-size: 0.7rem;
+  }
+  .hotel-card.horizontal-card .btn-book-hotel {
+    padding: 0.45rem 1.1rem;
+    font-size: 0.825rem;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+}
+
+
+@media (max-width: 540px) {
+  .hotel-card.horizontal-card {
+    grid-template-columns: 120px 1fr;
+    border-radius: 14px;
+  }
+  .hotel-card.horizontal-card .horizontal-content-col {
+    padding: 0.65rem 0.75rem 0.4rem;
+    gap: 0.35rem;
+  }
+  .hotel-card.horizontal-card .hotel-name {
+    font-size: 0.9rem;
+  }
+  .hotel-card.horizontal-card .horizontal-rate-compare {
+    display: none; /* Hide multi-box compare on very narrow screens for clean layout */
+  }
+  .hotel-card.horizontal-card .horizontal-action-col {
+    padding: 0.5rem 0.75rem 0.65rem;
+  }
+  .hotel-card.horizontal-card .price-figure {
+    font-size: 1.2rem;
+  }
+  .hotel-card.horizontal-card .btn-book-hotel {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.775rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hotel-card.horizontal-card {
+    grid-template-columns: 100px 1fr;
+  }
+  .hotel-card.horizontal-card .hotel-amenities-tags {
+    display: none;
+  }
+}
 

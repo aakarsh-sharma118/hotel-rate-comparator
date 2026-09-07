@@ -4,17 +4,21 @@ import { useUrlRouting } from '../hooks/useUrlRouting';
 import { PAGE_STRINGS } from '../constants/pageStrings';
 import BrandLogo from './common/BrandLogo';
 
-export const CorporateFooter: React.FC = () => {
+/**
+ * Site footer component providing brand identity, navigation links,
+ * legal modal triggers, and platform copyright notice.
+ */
+export const Footer: React.FC = () => {
   const { setPolicyModal } = useHotelStore();
   const { navigateToTab } = useUrlRouting();
 
-  const handleNav = (tab: 'search' | 'bookings' | 'faq') => {
+  const handleNav = (tab: 'search' | 'bookings') => {
     navigateToTab(tab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="corporate-footer" data-testid="corporate-footer">
+    <footer className="corporate-footer" data-testid="footer">
       {/* Navigation Columns */}
       <div className="footer-columns-grid">
         <div className="footer-brand-col">
@@ -23,7 +27,7 @@ export const CorporateFooter: React.FC = () => {
           <span className="company-legal-name">{PAGE_STRINGS.footer.company}</span>
         </div>
 
-        {/* Platform Column */}
+        {/* Platform Navigation */}
         <div className="footer-links-col">
           <h4>{PAGE_STRINGS.footer.headings.platform}</h4>
           <ul>
@@ -44,11 +48,6 @@ export const CorporateFooter: React.FC = () => {
         <div className="footer-links-col">
           <h4>{PAGE_STRINGS.footer.headings.supportLegal}</h4>
           <ul>
-            <li>
-              <button type="button" onClick={() => handleNav('faq')}>
-                {PAGE_STRINGS.footer.links.faq}
-              </button>
-            </li>
             <li>
               <button type="button" onClick={() => setPolicyModal('privacy')}>
                 {PAGE_STRINGS.footer.links.privacy}
@@ -71,4 +70,4 @@ export const CorporateFooter: React.FC = () => {
   );
 };
 
-export default CorporateFooter;
+export default Footer;

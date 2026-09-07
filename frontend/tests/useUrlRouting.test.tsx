@@ -28,10 +28,10 @@ describe('useUrlRouting Hook', () => {
     expect(useHotelStore.getState().activeTab).toBe('bookings');
   });
 
-  it('initializes tab to faq when path is /faq', () => {
+  it('defaults unknown paths to search tab', () => {
     window.history.pushState({}, '', '/faq');
     renderHook(() => useUrlRouting());
-    expect(useHotelStore.getState().activeTab).toBe('faq');
+    expect(useHotelStore.getState().activeTab).toBe('search');
   });
 
   it('updates path and history on navigateToTab', () => {
@@ -43,13 +43,6 @@ describe('useUrlRouting Hook', () => {
 
     expect(window.location.pathname).toBe('/bookings');
     expect(useHotelStore.getState().activeTab).toBe('bookings');
-
-    act(() => {
-      result.current.navigateToTab('faq');
-    });
-
-    expect(window.location.pathname).toBe('/faq');
-    expect(useHotelStore.getState().activeTab).toBe('faq');
   });
 
   it('syncs search parameters into URL query string', () => {

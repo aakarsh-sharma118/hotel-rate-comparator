@@ -6,30 +6,31 @@ interface HotelCardSkeletonProps {
   viewMode?: 'grid' | 'list';
 }
 
+/**
+ * Loading skeleton component mirroring both Grid and List view layouts responsively.
+ */
 export const HotelCardSkeleton: React.FC<HotelCardSkeletonProps> = ({ viewMode = 'grid' }) => {
   if (viewMode === 'list') {
     return (
       <div className="hotel-card horizontal-card skeleton-card" data-testid="hotel-card-skeleton-list">
-        <div style={{ width: '300px', height: '100%', minHeight: '220px' }}>
-          <Skeleton height="100%" borderRadius="18px 0 0 18px" />
+        <div className="horizontal-img-wrap">
+          <Skeleton height="100%" style={{ minHeight: '130px' }} />
         </div>
-        <div className="horizontal-content-col" style={{ padding: '1.25rem 1.5rem', gap: '0.85rem' }}>
+        <div className="horizontal-content-col" style={{ padding: '0.85rem 1rem', gap: '0.65rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Skeleton width={220} height={22} borderRadius={6} />
-            <Skeleton width={80} height={16} borderRadius={4} />
+            <Skeleton width={180} height={20} borderRadius={6} />
+            <Skeleton width={60} height={14} borderRadius={4} />
           </div>
-          <Skeleton width={260} height={14} borderRadius={4} />
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <Skeleton width={90} height={24} borderRadius={6} />
-            <Skeleton width={110} height={24} borderRadius={6} />
-            <Skeleton width={90} height={24} borderRadius={6} />
+          <Skeleton width={140} height={12} borderRadius={4} />
+          <div style={{ display: 'flex', gap: '0.4rem' }}>
+            <Skeleton width={75} height={20} borderRadius={4} />
+            <Skeleton width={85} height={20} borderRadius={4} />
           </div>
-          <Skeleton height={46} borderRadius={10} />
+          <Skeleton height={32} borderRadius={8} />
         </div>
-        <div className="horizontal-action-col" style={{ padding: '1.5rem', gap: '0.75rem' }}>
-          <Skeleton width={90} height={14} borderRadius={4} />
-          <Skeleton width={120} height={36} borderRadius={6} />
-          <Skeleton width={130} height={40} borderRadius={8} />
+        <div className="horizontal-action-col">
+          <Skeleton width={90} height={24} borderRadius={6} />
+          <Skeleton width={80} height={32} borderRadius={8} />
         </div>
       </div>
     );

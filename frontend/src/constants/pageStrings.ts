@@ -214,7 +214,7 @@ export const PAGE_STRINGS = {
     title: 'My Reservations',
     subtitle: 'Manage your verified hotel bookings and access instant confirmation details.',
     kicker: 'Reservation Management',
-    voidedNote: 'Reservation has been voided',
+    voidedNote: 'Reservation has been cancelled.',
     exploreMore: 'Explore More Destinations',
     emptyTitle: 'No Reservations Found',
     emptyDesc: 'You have not booked any stays yet. Search rates across our suppliers to find the best deal.',
@@ -283,7 +283,7 @@ export const PAGE_STRINGS = {
   footer: {
     company: 'HotelFinder Global Hospitality Technologies India',
     about: 'HotelFinder is a premier rate aggregation platform delivering transparent, resilient hotel rate comparison in Indian Rupees (₹) for travelers worldwide.',
-    copyright: `© ${new Date().getFullYear()} HotelFinder Technologies Inc. All rights reserved.`,
+    copyright: `© ${new Date().getFullYear()} HotelFinder By - Aakarsh Sharma All rights reserved.`,
     headings: {
       platform: 'Platform',
       supportLegal: 'Support & Legal',
@@ -291,7 +291,6 @@ export const PAGE_STRINGS = {
     links: {
       searchStays: 'Search Stays',
       myReservations: 'My Reservations',
-      faq: 'Frequently Asked Questions (FAQ)',
       privacy: 'Privacy Statement',
       terms: 'Terms of Service',
     },

@@ -15,7 +15,7 @@ import {
 import { PAGE_STRINGS } from '../constants/pageStrings';
 
 export type SortOption = 'cheapest' | 'stars' | 'name' | 'favorites';
-export type AppTab = 'search' | 'bookings' | 'faq';
+export type AppTab = 'search' | 'bookings';
 export type SupplierFilter = 'ALL' | 'Supplier A' | 'Supplier B';
 export type PolicyModalType = 'privacy' | 'terms' | null;
 

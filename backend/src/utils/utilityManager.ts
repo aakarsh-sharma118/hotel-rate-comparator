@@ -74,6 +74,7 @@ export function isTemporalConnectionError(error: any): boolean {
     msg.includes('connect') ||
     msg.includes('deadline') ||
     msg.includes('UNAVAILABLE') ||
+    msg.includes('queue wait timeout') ||
     error.code === 14
   );
 }

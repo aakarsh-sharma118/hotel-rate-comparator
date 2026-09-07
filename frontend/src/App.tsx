@@ -6,8 +6,7 @@ import SearchResultsList from './components/SearchResultsList';
 import BookingModal from './components/BookingModal';
 import InformationModal from './components/InformationModal';
 import MyBookingsView from './components/MyBookingsView';
-import FaqView from './components/FaqView';
-import CorporateFooter from './components/CorporateFooter';
+import Footer from './components/Footer';
 import { useHotelStore } from './store/useHotelStore';
 import { useHotelSearch } from './hooks/useHotelSearch';
 import { useUrlRouting } from './hooks/useUrlRouting';
@@ -109,7 +108,6 @@ function HotelComparatorApp() {
       )}
 
       {activeTab === 'bookings' && <MyBookingsView />}
-      {activeTab === 'faq' && <FaqView />}
 
       {/* Booking Modal */}
       <BookingModal />
@@ -118,7 +116,7 @@ function HotelComparatorApp() {
       <InformationModal />
 
       {/* Footer */}
-      <CorporateFooter />
+      <Footer />
     </div>
   );
 }

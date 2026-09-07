@@ -238,8 +238,13 @@ async function handleHotelSearch(
       return;
     }
 
-    // Wait for the workflow result
-    const result = await handle.result();
+    // Wait for the workflow result (with 2.5s worker timeout fallback if no worker is running)
+    const result = await Promise.race([
+      handle.result(),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Temporal worker queue wait timeout')), 2500)
+      ),
+    ]);
 
     if (result.status === 'ERROR') {
       res.status(500).json(result);
@@ -280,8 +285,8 @@ async function handleHotelSearch(
           checkOut: sanitizedCheckOut,
           simulations,
           workflowId,
-          supplierAUrl: `http://localhost:${localPort}/supplierA/hotels`,
-          supplierBUrl: `http://localhost:${localPort}/supplierB/hotels`,
+          supplierAUrl: process.env.SUPPLIER_A_URL || `http://localhost:${localPort}/supplierA/hotels`,
+          supplierBUrl: process.env.SUPPLIER_B_URL || `http://localhost:${localPort}/supplierB/hotels`,
         });
 
         const fallbackHotels =

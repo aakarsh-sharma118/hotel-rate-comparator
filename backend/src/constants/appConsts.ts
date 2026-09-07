@@ -22,12 +22,13 @@ export const SERVER_CONFIG = {
   MAX_REQUESTS_PER_WINDOW: 150, // 150 requests per minute per IP
   DEFAULT_ACTIVITY_TIMEOUT_MS: 5000, // 5 second SLA limit
   TEMPORAL_CONNECT_TIMEOUT: '1500ms' as const,
-  DEFAULT_TEMPORAL_ADDRESS: 'localhost:7233',
+  DEFAULT_TEMPORAL_ADDRESS: '127.0.0.1:7233',
   TASK_QUEUE_NAME: 'hotel-rate-comparator',
   CORS_ALLOWED_ORIGINS: [
     'http://localhost:5173',
     'http://localhost:3000',
     'https://aakarsh-sharma118.github.io',
+    ...(process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(s => s.trim()) : []),
   ],
   CORS_ALLOWED_METHODS: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] as string[],
   CORS_ALLOWED_HEADERS: ['Content-Type', 'Authorization'],

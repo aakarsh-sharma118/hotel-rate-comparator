@@ -25,7 +25,6 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
   const getTabFromPath = useCallback((pathname: string): AppTab => {
     const cleanPath = pathname.replace(/^\/hotel-rate-comparator/, '').toLowerCase();
     if (cleanPath.startsWith('/bookings')) return 'bookings';
-    if (cleanPath.startsWith('/faq')) return 'faq';
     return 'search';
   }, []);
 
@@ -37,8 +36,6 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
 
       if (tab === 'bookings') {
         targetPath = '/bookings';
-      } else if (tab === 'faq') {
-        targetPath = '/faq';
       } else {
         // Keep query params
         const searchParams = new URLSearchParams();
