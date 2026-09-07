@@ -361,7 +361,7 @@ export const SearchResultsList: React.FC<SearchResultsListProps> = ({
                     </div>
 
                     <div className="hotel-amenities-tags">
-                      {hotel.amenities.map((amenity, i) => (
+                      {hotel.amenities.slice(0, 2).map((amenity, i) => (
                         <span key={i} className="amenity-chip">
                           <Check size={11} className="amenity-check" /> {amenity}
                         </span>

@@ -46,6 +46,28 @@ export const Header: React.FC = () => {
           {confirmedCount > 0 && <span className="nav-badge-count">{confirmedCount}</span>}
         </button>
 
+        {/* Theme Toggle (Desktop only - mobile has header bar toggle) */}
+        <button
+          type="button"
+          className="theme-toggle-btn desktop-theme-btn"
+          onClick={toggleTheme}
+          title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+          aria-label={PAGE_STRINGS.nav.themeToggleLabel}
+          data-testid="theme-toggle-btn"
+        >
+          {isDark ? (
+            <>
+              <Sun size={15} className="theme-icon sun-icon" />
+              <span className="theme-text">{PAGE_STRINGS.nav.lightMode}</span>
+            </>
+          ) : (
+            <>
+              <Moon size={15} className="theme-icon moon-icon" />
+              <span className="theme-text">{PAGE_STRINGS.nav.darkMode}</span>
+            </>
+          )}
+        </button>
+
         <a
           href="https://github.com/aakarsh-sharma118/hotel-rate-comparator"
           target="_blank"

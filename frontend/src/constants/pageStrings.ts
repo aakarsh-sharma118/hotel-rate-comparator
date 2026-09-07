@@ -107,7 +107,7 @@ export const PAGE_STRINGS = {
     supplierA: 'Supplier A',
     supplierB: 'Supplier B',
     rateFrom: 'Rate from',
-    bestRateBadge: 'Best Deal Verified',
+    bestRateBadge: 'Best Deal',
     compareBadgePrefix: 'Supplier Comparison:',
     aIsCheaper: 'Supplier A saves more',
     bIsCheaper: 'Supplier B saves more',
