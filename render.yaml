@@ -1,0 +1,51 @@
+# render.yaml - Render.com Infrastructure as Code
+# Deploy both the API server and Temporal worker from one config
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  # ─── 1. Express API Server ───────────────────────────────────────────────
+  - type: web
+    name: hotelfinder-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: node dist/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: CORS_ORIGIN
+        sync: false   # Set this manually on Render dashboard
+      - key: TEMPORAL_ADDRESS
+        sync: false   # Set this manually on Render dashboard
+      - key: TEMPORAL_NAMESPACE
+        sync: false   # Set this manually on Render dashboard
+      - key: TEMPORAL_API_KEY
+        sync: false   # Set this manually on Render dashboard
+      - key: SUPPLIER_A_URL
+        sync: false   # Set to https://hotelfinder-api.onrender.com/supplierA/hotels
+      - key: SUPPLIER_B_URL
+        sync: false   # Set to https://hotelfinder-api.onrender.com/supplierB/hotels
+
+  # ─── 2. Temporal Workflow Worker ─────────────────────────────────────────
+  - type: worker
+    name: hotelfinder-worker
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: node dist/worker.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TEMPORAL_ADDRESS
+        sync: false   # Must match the API server's TEMPORAL_ADDRESS
+      - key: TEMPORAL_NAMESPACE
+        sync: false   # Must match the API server's TEMPORAL_NAMESPACE
+      - key: TEMPORAL_API_KEY
+        sync: false   # Must match the API server's TEMPORAL_API_KEY
+      - key: SUPPLIER_A_URL
+        sync: false
+      - key: SUPPLIER_B_URL
+        sync: false

@@ -105,14 +105,18 @@ async function getTemporalClient(): Promise<Client> {
   if (temporalClient) return temporalClient;
 
   const temporalAddress = process.env.TEMPORAL_ADDRESS || SERVER_CONFIG.DEFAULT_TEMPORAL_ADDRESS;
-  const connection = await Connection.connect({
-    address: temporalAddress,
-    connectTimeout: SERVER_CONFIG.TEMPORAL_CONNECT_TIMEOUT,
-  });
-  temporalClient = new Client({ connection, namespace: 'default' });
+  const temporalNamespace = process.env.TEMPORAL_NAMESPACE || 'default';
+  const apiKey = process.env.TEMPORAL_API_KEY;
+
+  // Build connection options: use TLS + API key for Temporal Cloud, plain TCP for local
+  const connectionOptions: Parameters<typeof Connection.connect>[0] = apiKey
+    ? { address: temporalAddress, tls: true, apiKey }
+    : { address: temporalAddress, connectTimeout: SERVER_CONFIG.TEMPORAL_CONNECT_TIMEOUT };
+
+  const connection = await Connection.connect(connectionOptions);
+  temporalClient = new Client({ connection, namespace: temporalNamespace });
   return temporalClient;
 }
-
 // Fallback comparison
 async function runDirectFallbackComparison(params: {
   city: string;
