@@ -45,9 +45,18 @@ export async function runWorker() {
   console.log(`[Worker] Initializing Temporal background worker for task queue "${TASK_QUEUE_NAME}"...`);
   console.log(`[Worker] Target Temporal address: ${temporalAddress} | Namespace: ${temporalNamespace}`);
 
-  while (!isShuttingDown) {
+  const maxAttempts =
+    parseInt(process.env.TEMPORAL_MAX_CONNECT_ATTEMPTS || '', 10) ||
+    SERVER_CONFIG.MAX_TEMPORAL_CONNECT_ATTEMPTS ||
+    5;
+  let attemptCount = 0;
+
+  while (!isShuttingDown && attemptCount < maxAttempts) {
+    attemptCount += 1;
     try {
-      console.log(`[Worker] Attempting connection to Temporal server at ${temporalAddress}...`);
+      console.log(
+        `[Worker] Attempt ${attemptCount}/${maxAttempts}: Connecting to Temporal server at ${temporalAddress}...`
+      );
       const connection = await NativeConnection.connect(getConnectionOptions());
 
       const worker = await Worker.create({
@@ -71,6 +80,16 @@ export async function runWorker() {
         err?.message?.includes('ConnectError') ||
         err?.message?.includes('UNAVAILABLE');
 
+      if (attemptCount >= maxAttempts) {
+        console.warn(
+          `[Worker] Max connection attempts (${maxAttempts}/${maxAttempts}) reached. Temporal server is offline.`
+        );
+        console.log(
+          `[Worker] Worker is standing down. The backend will continue operating in Resilient Direct-Comparison fallback mode.`
+        );
+        break;
+      }
+
       if (isConnectionRefused) {
         console.warn(
           `[Worker] Temporal server is currently offline or unreachable at ${temporalAddress}.`
@@ -79,7 +98,7 @@ export async function runWorker() {
           `[Worker] The backend is operating in Resilient Direct-Comparison fallback mode.`
         );
         console.log(
-          `[Worker] Worker will automatically reconnect when Temporal server is started. Retrying in 10s...`
+          `[Worker] Retrying in 10s (attempt ${attemptCount}/${maxAttempts})...`
         );
       } else {
         console.error(`[Worker] Temporal worker error: ${err?.message || err}. Retrying in 10s...`);
@@ -92,6 +111,8 @@ export async function runWorker() {
 
   if (isShuttingDown) {
     console.log('[Worker] Gracefully shut down Temporal worker.');
+  } else if (attemptCount >= maxAttempts) {
+    console.log('[Worker] Worker process exited cleanly after reaching max connection attempts.');
   }
 }
 

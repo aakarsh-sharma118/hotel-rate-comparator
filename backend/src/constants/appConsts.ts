@@ -23,6 +23,7 @@ export const SERVER_CONFIG = {
   DEFAULT_ACTIVITY_TIMEOUT_MS: 5000, // 5 second SLA limit
   TEMPORAL_CONNECT_TIMEOUT: '1500ms' as const,
   DEFAULT_TEMPORAL_ADDRESS: '127.0.0.1:7233',
+  MAX_TEMPORAL_CONNECT_ATTEMPTS: 5,
   TASK_QUEUE_NAME: 'hotel-rate-comparator',
   CORS_ALLOWED_ORIGINS: [
     'http://localhost:5173',
