@@ -62,6 +62,23 @@ describe('useUrlRouting Hook', () => {
     expect(window.location.search).toContain('checkOut=2026-09-12');
   });
 
+  it('preserves GitHub Pages subpath /hotel-rate-comparator when navigating', () => {
+    window.history.pushState({}, '', '/hotel-rate-comparator/');
+    const { result } = renderHook(() => useUrlRouting());
+
+    act(() => {
+      result.current.navigateToTab('bookings');
+    });
+
+    expect(window.location.pathname).toBe('/hotel-rate-comparator/bookings');
+
+    act(() => {
+      result.current.navigateToTab('search');
+    });
+
+    expect(window.location.pathname).toBe('/hotel-rate-comparator/');
+  });
+
   it('auto-triggers search if valid query parameters exist on mount', () => {
     window.history.pushState({}, '', '/?city=Goa&checkIn=2026-09-10&checkOut=2026-09-12&guests=2');
     const onAutoSearch = vi.fn();

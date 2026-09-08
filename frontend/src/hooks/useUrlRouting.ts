@@ -3,6 +3,15 @@ import { useHotelStore, AppTab } from '../store/useHotelStore';
 import { SearchHotelsParams } from '../api/types';
 import { sanitizeInput, VALIDATION_REGEX } from '../constants/validation';
 
+export function getAppBasePath(): string {
+  if (typeof window === 'undefined') return '';
+  const pathname = window.location.pathname;
+  if (pathname.startsWith('/hotel-rate-comparator')) {
+    return '/hotel-rate-comparator';
+  }
+  return '';
+}
+
 interface UseUrlRoutingProps {
   onAutoSearch?: (params: SearchHotelsParams) => void;
 }
@@ -28,14 +37,15 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
     return 'search';
   }, []);
 
-  // Navigate tab
+  // Navigate tab preserving repository subpath
   const navigateToTab = useCallback(
     (tab: AppTab) => {
       setActiveTab(tab);
-      let targetPath = '/';
+      const basePath = getAppBasePath();
+      let targetPath = basePath ? `${basePath}/` : '/';
 
       if (tab === 'bookings') {
-        targetPath = '/bookings';
+        targetPath = basePath ? `${basePath}/bookings` : '/bookings';
       } else {
         // Keep query params
         const searchParams = new URLSearchParams();
@@ -45,7 +55,9 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
         if (guests) searchParams.set('guests', String(guests));
 
         const queryStr = searchParams.toString();
-        targetPath = queryStr ? `/?${queryStr}` : '/';
+        targetPath = queryStr
+          ? (basePath ? `${basePath}/?${queryStr}` : `/?${queryStr}`)
+          : (basePath ? `${basePath}/` : '/');
       }
 
       if (window.location.pathname + window.location.search !== targetPath) {
@@ -55,16 +67,20 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
     [setActiveTab, city, checkIn, checkOut, guests]
   );
 
-  // Sync search to URL
+  // Sync search to URL preserving repository subpath
   const syncSearchToUrl = useCallback(
     (params: { city: string; checkIn: string; checkOut: string; guests: number }) => {
+      const basePath = getAppBasePath();
       const searchParams = new URLSearchParams();
       if (params.city) searchParams.set('city', params.city);
       if (params.checkIn) searchParams.set('checkIn', params.checkIn);
       if (params.checkOut) searchParams.set('checkOut', params.checkOut);
       if (params.guests) searchParams.set('guests', String(params.guests));
 
-      const newUrl = `/?${searchParams.toString()}`;
+      const queryStr = searchParams.toString();
+      const newUrl = queryStr
+        ? (basePath ? `${basePath}/?${queryStr}` : `/?${queryStr}`)
+        : (basePath ? `${basePath}/` : '/');
       window.history.pushState({ tab: 'search', ...params }, '', newUrl);
     },
     []
