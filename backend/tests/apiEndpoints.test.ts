@@ -28,6 +28,15 @@ describe('Standardized REST API Endpoints Tests', () => {
     });
   });
 
+  it('GET / returns landing status and API metadata', async () => {
+    const res = await axios.get(`${baseUrl}/`, {
+      headers: { Accept: 'application/json' },
+    });
+    expect(res.status).toBe(200);
+    expect(res.data.status).toBe('ONLINE');
+    expect(res.data.service).toBe('Hotel Rate Comparator API');
+  });
+
   it('GET /api/v1 returns catalog of available REST endpoints', async () => {
     const res = await axios.get(`${baseUrl}/api/v1`);
     expect(res.status).toBe(200);
