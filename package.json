@@ -18,6 +18,7 @@
     "lint": "npm --prefix backend run lint && npm --prefix frontend run lint",
     "visualize": "npm --prefix frontend run visualize",
     "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "start": "npm --prefix backend run start",
     "prepare": "husky || true"
   },
   "devDependencies": {
