@@ -3,10 +3,11 @@ import { useHotelStore, AppTab } from '../store/useHotelStore';
 import { SearchHotelsParams } from '../api/types';
 import { sanitizeInput, VALIDATION_REGEX } from '../constants/validation';
 
+// Base path for production
 export function getAppBasePath(): string {
   if (typeof window === 'undefined') return '';
-  const pathname = window.location.pathname;
-  if (pathname.startsWith('/hotel-rate-comparator')) {
+  const isProd = Boolean((import.meta as any).env?.PROD || process.env.NODE_ENV === 'production');
+  if (isProd && window.location.pathname.startsWith('/hotel-rate-comparator')) {
     return '/hotel-rate-comparator';
   }
   return '';
@@ -37,7 +38,7 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
     return 'search';
   }, []);
 
-  // Navigate tab preserving repository subpath
+  // Navigate tab
   const navigateToTab = useCallback(
     (tab: AppTab) => {
       setActiveTab(tab);
@@ -47,7 +48,6 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
       if (tab === 'bookings') {
         targetPath = basePath ? `${basePath}/bookings` : '/bookings';
       } else {
-        // Keep query params
         const searchParams = new URLSearchParams();
         if (city) searchParams.set('city', city);
         if (checkIn) searchParams.set('checkIn', checkIn);
@@ -67,7 +67,7 @@ export function useUrlRouting({ onAutoSearch }: UseUrlRoutingProps = {}) {
     [setActiveTab, city, checkIn, checkOut, guests]
   );
 
-  // Sync search to URL preserving repository subpath
+  // Sync search to URL
   const syncSearchToUrl = useCallback(
     (params: { city: string; checkIn: string; checkOut: string; guests: number }) => {
       const basePath = getAppBasePath();

@@ -289,7 +289,8 @@ export const useHotelStore = create<HotelStoreState>((set, get) => ({
       lastSearchResult: null,
     });
     if (typeof window !== 'undefined') {
-      const basePath = window.location.pathname.startsWith('/hotel-rate-comparator') ? '/hotel-rate-comparator/' : '/';
+      const isProd = Boolean((import.meta as any).env?.PROD);
+      const basePath = isProd && window.location.pathname.startsWith('/hotel-rate-comparator') ? '/hotel-rate-comparator/' : '/';
       window.history.pushState({}, '', basePath);
     }
     get().fetchCatalogForCity('Goa');

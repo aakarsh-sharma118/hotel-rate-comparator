@@ -62,7 +62,8 @@ describe('useUrlRouting Hook', () => {
     expect(window.location.search).toContain('checkOut=2026-09-12');
   });
 
-  it('preserves GitHub Pages subpath /hotel-rate-comparator when navigating', () => {
+  it('preserves subpath when navigating in production', () => {
+    process.env.NODE_ENV = 'production';
     window.history.pushState({}, '', '/hotel-rate-comparator/');
     const { result } = renderHook(() => useUrlRouting());
 
@@ -77,6 +78,7 @@ describe('useUrlRouting Hook', () => {
     });
 
     expect(window.location.pathname).toBe('/hotel-rate-comparator/');
+    process.env.NODE_ENV = 'test';
   });
 
   it('auto-triggers search if valid query parameters exist on mount', () => {
