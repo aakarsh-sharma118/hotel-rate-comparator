@@ -542,9 +542,14 @@ app.get('/api/search-status/:workflowId', searchStatusHandler);
 
 // Reservations endpoints
 app.get('/api/v1/bookings', (_req: Request, res: Response): void => {
+  const maskedBookings = confirmedBookings.map((b) => ({
+    ...b,
+    guestEmail: b.guestEmail.replace(/(.{2})(.*)(@.*)/, '$1***$3'),
+    guestPhone: b.guestPhone.replace(/\d(?=\d{4})/g, '*'),
+  }));
   res.status(200).json({
-    bookings: confirmedBookings,
-    count: confirmedBookings.length,
+    bookings: maskedBookings,
+    count: maskedBookings.length,
   });
 });
 
