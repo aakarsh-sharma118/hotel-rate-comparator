@@ -44,7 +44,7 @@ app.use(
         styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
-        connectSrc: ["'self'", 'http://localhost:3001', 'http://localhost:3000', 'http://localhost:5173', 'ws:'],
+        connectSrc: ["'self'", 'http://localhost:3001', 'http://localhost:3000', 'http://localhost:5173', 'https://*.onrender.com', 'ws:'],
         objectSrc: ["'none'"],
       },
     },
@@ -158,9 +158,122 @@ async function runDirectFallbackComparison(params: {
 
 // Root endpoint (landing page & status)
 app.get('/', (req: Request, res: Response): void => {
+  const frontendUrl = (process.env.FRONTEND_URL || '').trim();
+
   if (req.accepts('html') && !req.accepts('json')) {
+    const frontendBtn = frontendUrl
+      ? `<a href="${frontendUrl}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Open Web App (Frontend) &rarr;</a>`
+      : '';
+
+    const landingHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Rate Comparator API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --border: rgba(255, 255, 255, 0.1);
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --success: #34d399;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--success);
+    }
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.025em; }
+    p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 28px; }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    .btn-primary { background: var(--primary); color: #0f172a; }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-1px); }
+    .endpoints { background: rgba(0, 0, 0, 0.3); border-radius: 16px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.05); }
+    .endpoints h3 { font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .endpoint-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 0.9rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    .endpoint-item:last-child { border-bottom: none; }
+    .endpoint-item a { color: var(--primary); text-decoration: none; font-family: monospace; font-size: 0.85rem; }
+    .endpoint-item a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge"><span class="badge-dot"></span> Backend Live & Operational</div>
+    <h1>Hotel Rate Comparator API</h1>
+    <p>High-performance distributed search engine aggregating and comparing real-time hotel supplier rates powered by Temporal workflows.</p>
+    <div class="btn-group">
+      ${frontendBtn}
+      <a href="/api/v1" class="btn btn-secondary">API Catalog</a>
+      <a href="/health" class="btn btn-secondary">Health Check</a>
+    </div>
+    <div class="endpoints">
+      <h3>Quick API Links</h3>
+      <div class="endpoint-item"><span>API Health</span><a href="/health">GET /health</a></div>
+      <div class="endpoint-item"><span>API Catalog</span><a href="/api/v1">GET /api/v1</a></div>
+      <div class="endpoint-item"><span>Supplier A Mock</span><a href="/supplierA/hotels?city=Goa">GET /supplierA/hotels</a></div>
+      <div class="endpoint-item"><span>Supplier B Mock</span><a href="/supplierB/hotels?city=Goa">GET /supplierB/hotels</a></div>
+      <div class="endpoint-item"><span>Hotel Search</span><a href="/api/v1/hotels/search?city=Goa&checkIn=2026-09-10&checkOut=2026-09-15">GET /api/v1/hotels/search</a></div>
+    </div>
+  </div>
+</body>
+</html>`;
+
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.send("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Hotel Rate Comparator API</title>\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap\" rel=\"stylesheet\">\n  <style>\n    :root {\n      --bg: #0b1120;\n      --card-bg: rgba(15, 23, 42, 0.75);\n      --border: rgba(255, 255, 255, 0.1);\n      --primary: #38bdf8;\n      --primary-hover: #0284c7;\n      --success: #34d399;\n      --text: #f8fafc;\n      --text-muted: #94a3b8;\n    }\n    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }\n    body {\n      background: radial-gradient(circle at 50% 0%, #1e293b 0%, var(--bg) 100%);\n      color: var(--text);\n      min-height: 100vh;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      padding: 24px;\n    }\n    .card {\n      background: var(--card-bg);\n      border: 1px solid var(--border);\n      backdrop-filter: blur(16px);\n      border-radius: 24px;\n      padding: 40px;\n      max-width: 640px;\n      width: 100%;\n      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);\n    }\n    .badge {\n      display: inline-flex;\n      align-items: center;\n      gap: 8px;\n      background: rgba(52, 211, 153, 0.15);\n      color: var(--success);\n      border: 1px solid rgba(52, 211, 153, 0.3);\n      padding: 6px 14px;\n      border-radius: 9999px;\n      font-size: 0.875rem;\n      font-weight: 600;\n      margin-bottom: 20px;\n    }\n    .badge-dot {\n      width: 8px;\n      height: 8px;\n      background: var(--success);\n      border-radius: 50%;\n      box-shadow: 0 0 10px var(--success);\n    }\n    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.025em; }\n    p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 28px; }\n    .btn-group { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }\n    .btn {\n      display: inline-flex;\n      align-items: center;\n      gap: 8px;\n      padding: 12px 20px;\n      border-radius: 12px;\n      font-weight: 600;\n      text-decoration: none;\n      font-size: 0.95rem;\n      transition: all 0.2s ease;\n    }\n    .btn-primary { background: var(--primary); color: #0f172a; }\n    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }\n    .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--text); border: 1px solid var(--border); }\n    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-1px); }\n    .endpoints { background: rgba(0, 0, 0, 0.3); border-radius: 16px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.05); }\n    .endpoints h3 { font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }\n    .endpoint-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 0.9rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }\n    .endpoint-item:last-child { border-bottom: none; }\n    .endpoint-item a { color: var(--primary); text-decoration: none; font-family: monospace; font-size: 0.85rem; }\n    .endpoint-item a:hover { text-decoration: underline; }\n  </style>\n</head>\n<body>\n  <div class=\"card\">\n    <div class=\"badge\"><span class=\"badge-dot\"></span> Backend Live & Operational</div>\n    <h1>Hotel Rate Comparator API</h1>\n    <p>High-performance distributed search engine aggregating and comparing real-time hotel supplier rates powered by Temporal workflows.</p>\n    <div class=\"btn-group\">\n      <a href=\"https://aakarsh-sharma118.github.io/hotel-rate-comparator/\" class=\"btn btn-primary\" target=\"_blank\">Open Web App (Frontend) &rarr;</a>\n      <a href=\"/api/v1\" class=\"btn btn-secondary\">API Catalog</a>\n      <a href=\"/health\" class=\"btn btn-secondary\">Health Check</a>\n    </div>\n    <div class=\"endpoints\">\n      <h3>Quick API Links</h3>\n      <div class=\"endpoint-item\"><span>API Health</span><a href=\"/health\">GET /health</a></div>\n      <div class=\"endpoint-item\"><span>API Catalog</span><a href=\"/api/v1\">GET /api/v1</a></div>\n      <div class=\"endpoint-item\"><span>Supplier A Mock</span><a href=\"/supplierA/hotels?city=Goa\">GET /supplierA/hotels</a></div>\n      <div class=\"endpoint-item\"><span>Supplier B Mock</span><a href=\"/supplierB/hotels?city=Goa\">GET /supplierB/hotels</a></div>\n      <div class=\"endpoint-item\"><span>Hotel Search</span><a href=\"/api/v1/hotels/search?city=Goa&checkIn=2026-09-10&checkOut=2026-09-15\">GET /api/v1/hotels/search</a></div>\n    </div>\n  </div>\n</body>\n</html>");
+    res.send(landingHtml);
     return;
   }
 
@@ -170,7 +283,7 @@ app.get('/', (req: Request, res: Response): void => {
     version: 'v1.0.0',
     documentation: '/api/v1',
     health: '/health',
-    frontend: 'https://aakarsh-sharma118.github.io/hotel-rate-comparator/',
+    ...(frontendUrl ? { frontend: frontendUrl } : {}),
     endpoints: {
       health: 'GET /health',
       catalog: 'GET /api/v1',
@@ -391,7 +504,7 @@ const cancelSearchHandler = async (req: Request, res: Response): Promise<void> =
   } catch (error: any) {
     console.error(`[Server] Failed to cancel workflow ${workflowId}:`, error);
     res.status(500).json({
-      error: `Failed to cancel workflow ${workflowId}: ${error?.message || error}`,
+      error: `Failed to cancel workflow ${workflowId}. The workflow may have already completed or does not exist.`,
     });
   }
 };
@@ -418,8 +531,9 @@ const searchStatusHandler = async (req: Request, res: Response): Promise<void> =
       result,
     });
   } catch (error: any) {
+    console.warn(`[Server] Workflow status query failed for ${workflowId}:`, error?.message || error);
     res.status(404).json({
-      error: `Workflow ${workflowId} not found or query failed: ${error?.message || error}`,
+      error: `Workflow ${workflowId} not found or status query failed.`,
     });
   }
 };

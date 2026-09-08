@@ -41,6 +41,8 @@ jobs:
         run: npm run test
 
       - name: Build Frontend for Production
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: npm --prefix frontend run build
 
       - name: Setup GitHub Pages

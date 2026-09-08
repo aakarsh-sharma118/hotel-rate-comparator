@@ -28,7 +28,7 @@ export const SERVER_CONFIG = {
   CORS_ALLOWED_ORIGINS: [
     'http://localhost:5173',
     'http://localhost:3000',
-    'https://aakarsh-sharma118.github.io',
+    ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL.replace(/\/$/, '')] : []),
     ...(process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(s => s.trim()) : []),
   ],
   CORS_ALLOWED_METHODS: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] as string[],
